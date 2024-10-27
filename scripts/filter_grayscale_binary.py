@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import cv2
 import rospy
 from cv_bridge import CvBridge, CvBridgeError
 from dynamic_reconfigure.server import Server
@@ -28,14 +29,12 @@ def image_callback(ros_image):
     try:
         cv_image = bridge.imgmsg_to_cv2(ros_image, "bgr8")
 
-        bw_image = cv_tools.gray_to_binary_mask(cv_tools.bgr_to_gray(cv_image), config_.threshold)
+        bw_image = cv2.threshold(cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY), config_.threshold, 255, cv2.THRESH_BINARY)
 
         if config_.white_percent:
-            white_percent_pub.publish(cv_tools.percent_white(bw_image))
+            white_percent_pub.publish(cv_tools.white_percent(bw_image))
 
-        output_image = bridge.cv2_to_imgmsg(cv_tools.gray_to_bgr(bw_image))
-
-        image_pub.publish(output_image)
+        image_pub.publish(bridge.cv2_to_imgmsg(cv2.cvtColor(bw_image, cv2.COLOR_GRAY2BGR)))
 
     except CvBridgeError as e:
         print(e)
