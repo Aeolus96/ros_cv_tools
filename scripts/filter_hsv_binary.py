@@ -48,7 +48,7 @@ def image_callback(ros_image):
         if config_.white_percent:
             white_percent_pub.publish(cv_tools.white_percent(bw_image))
 
-        image_pub.publish(bridge.cv2_to_imgmsg(cv2.cvtColor(bw_image, cv2.COLOR_HSV2BGR), encoding="rgb8"))
+        image_pub.publish(bridge.cv2_to_imgmsg(cv2.cvtColor(bw_image, cv2.COLOR_GRAY2BGR), encoding="rgb8"))
 
     except CvBridgeError as e:
         print(e)
