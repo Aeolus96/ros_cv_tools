@@ -31,6 +31,8 @@ def image_callback(ros_image):
 
         bw_image = cv2.threshold(cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY), config_.threshold, 255, cv2.THRESH_BINARY)
 
+        print(bw_image)
+
         if config_.white_percent:
             white_percent_pub.publish(cv_tools.white_percent(bw_image))
 
