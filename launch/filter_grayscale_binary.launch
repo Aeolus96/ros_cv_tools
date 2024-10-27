@@ -8,7 +8,7 @@
     <node pkg="ros_cv_tools" type="filter_grayscale_binary.py" name="filter_grayscale_binary">
         <param name="input_image_topic" value="$(arg input_image_topic)" />
         <param name="output_image_topic" value="$(arg output_image_topic)" />
-        <param name="white_percent_topic" value="${arg white_percent_topic}" />
+        <param name="white_percent_topic" value="$(arg white_percent_topic)" />
     </node>
 
 </launch>
