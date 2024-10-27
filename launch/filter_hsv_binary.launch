@@ -5,7 +5,7 @@
     <arg name="output_image_topic" default="filtered_images/hsv_binary_image" />
     <arg name="white_percent_topic" default="$(arg output_image_topic)/white_percent" />
 
-    <node pkg="ros_cv_tools" type="filter_hsv_binary" name="filter_hsv_binary">
+    <node pkg="ros_cv_tools" type="filter_hsv_binary.py" name="filter_hsv_binary">
         <param name="input_image_topic" value="$(arg input_image_topic)" />
         <param name="output_image_topic" value="$(arg output_image_topic)" />
         <param name="white_percent_topic" value="${arg white_percent_topic}" />
