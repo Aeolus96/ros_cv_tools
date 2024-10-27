@@ -29,15 +29,12 @@ def image_callback(ros_image):
     try:
         cv_image = bridge.imgmsg_to_cv2(ros_image, "bgr8")
 
-        if cv_image is None:
-            print("No image received")
-            return
-        print(cv_image.shape)
-
-        bw_image = cv2.threshold(cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY), config_.threshold, 255, cv2.THRESH_BINARY)
-
-        rospy.sleep(10)
-        print(bw_image)
+        bw_image = cv2.threshold(
+            cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY),
+            config_.threshold,
+            255,
+            cv2.THRESH_BINARY,
+        )[1]  # capture only the binary image not entire tuple
 
         if config_.white_percent:
             white_percent_pub.publish(cv_tools.white_percent(bw_image))
