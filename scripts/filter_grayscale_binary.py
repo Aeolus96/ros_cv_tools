@@ -29,17 +29,17 @@ def image_callback(ros_image):
     try:
         cv_image = bridge.imgmsg_to_cv2(ros_image, "bgr8")
 
-        bw_image = cv2.threshold(
+        ret, bw_image = cv2.threshold(
             cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY),
             config_.threshold,
             255,
             cv2.THRESH_BINARY,
-        )[1]  # capture only the binary image not entire tuple
+        )
 
         if config_.white_percent:
             white_percent_pub.publish(cv_tools.white_percent(bw_image))
 
-        image_pub.publish(bridge.cv2_to_imgmsg(cv2.cvtColor(bw_image, cv2.COLOR_GRAY2BGR), "bgr8"))
+        image_pub.publish(bridge.cv2_to_imgmsg(cv2.cvtColor(bw_image, cv2.COLOR_GRAY2BGR), encoding="rgb8"))
 
     except CvBridgeError as e:
         print(e)
