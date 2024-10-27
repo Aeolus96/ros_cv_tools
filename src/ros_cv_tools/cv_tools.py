@@ -5,6 +5,9 @@ import numpy as np
 def white_percent(cv_image):
     """Calculate the percentage of white pixels in a black-and-white image"""
 
+    print(cv_image.shape)
+    print(cv_image.shape[:2])
+
     white_pixels = np.sum(cv_image == 255)
     total_pixels = cv_image.shape[0] * cv_image.shape[1]
     percentage = (white_pixels / total_pixels) * 100
